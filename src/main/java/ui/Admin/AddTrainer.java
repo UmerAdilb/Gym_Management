@@ -1,5 +1,7 @@
 package ui.Admin;
 
+import services.TrainerService;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,8 +23,8 @@ public class AddTrainer {
 
         JLabel title = new JLabel("ADD Trainer");
 
-        JLabel memberN = new JLabel("Trainer Name");
-        JTextField memberName = new JTextField(10);
+        JLabel trainerN = new JLabel("Trainer Name");
+        JTextField trainerName = new JTextField(10);
 
         JLabel gender = new JLabel("Gender");
         JTextField genderTf = new JTextField(10);
@@ -33,19 +35,19 @@ public class AddTrainer {
         JLabel contact = new JLabel("Contact");
         JTextField contactTf = new JTextField(10);
 
-        JLabel address = new JLabel("Adress");
+        JLabel address = new JLabel("Address");
         JTextField addressTf = new JTextField(10);
 
 
 
         JButton Add = new JButton("Add");
 
-        JButton backButton = new JButton(">");
+        JButton backButton = new JButton("Back");
 
 
 
-        memberN.setBounds(250, 50, 150, 35);
-        memberName.setBounds(400, 50, 150, 35);
+        trainerN.setBounds(250, 50, 150, 35);
+        trainerName.setBounds(400, 50, 150, 35);
 
         gender.setBounds(250,100,150,35);
         genderTf.setBounds(400,100,150,35);
@@ -64,17 +66,29 @@ public class AddTrainer {
         Add.setBounds(400, 350, 150, 35);
 
         Add.addActionListener(btn->{
+            String _name = trainerName.getText();
+            String _gender = genderTf.getText();
+            Integer _age = Integer.valueOf(ageTf.getText());
+            String _contact = contactTf.getText();
+            String _address = addressTf.getText();
 
+            Boolean addtrainer =  TrainerService.addTrainer(_name,_gender,_age,_contact,_address);
+
+            if(addtrainer){
+                JOptionPane.showMessageDialog(frame,"Trainer Added Succesfully");
+            }else {
+                JOptionPane.showMessageDialog(frame,"Trainer Name Already Exists");
+            }
         });
 
         backButton.addActionListener(btn->{
             frame.dispose();
-            new ManageMember();
+            new ManageTrainer();
         });
 
         topPanel.add(title);
-        bottomPanel.add(memberN);
-        bottomPanel.add(memberName);
+        bottomPanel.add(trainerN);
+        bottomPanel.add(trainerName);
         bottomPanel.add(gender);
         bottomPanel.add(genderTf);
         bottomPanel.add(age);
