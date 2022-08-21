@@ -16,7 +16,7 @@ public class BaseConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/gym_management","root","qwerty12345");
+                    "jdbc:mysql://localhost:3306/gym_management","root","root");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -26,13 +26,10 @@ public class TrainerService {
     public static boolean addTrainer(String name, String gender, Integer age, String contact, String address){
 
         TrainerRepository trainerRepository = new TrainerRepository();
-        List<Trainer> trainerLi = trainerRepository.GetAllTrainers();
-        Trainer train = trainerLi.stream().filter(f->f.getName().equalsIgnoreCase(name)
-        ).findAny().orElse(null);
+        Trainer trainer = new Trainer(name,gender,age,contact,address);
 
-        if (train == null){
-            Trainer trainer = new Trainer(name,gender,age,contact,address);
-            trainerRepository.addTrainer(trainer);
+        if (trainerRepository.addTrainer(trainer)){
+
             return true;
         }
         return false;

@@ -26,7 +26,7 @@ public class TrainerRepository extends BaseConnection {
         return trainerlist;
     }
 
-    public void addTrainer(Trainer trainer) {
+    public Boolean addTrainer(Trainer trainer) {
         try {
             if(con.isClosed()){
                 openConnection();
@@ -40,10 +40,11 @@ public class TrainerRepository extends BaseConnection {
             ps.setString(5,trainer.getAddress());
             int i=ps.executeUpdate();
             System.out.println(i+" records inserted");
+            return true;
 
         }catch (Exception  e){
             System.out.println(e);
-        }
+        return false; }
     }
 
     public Boolean deleteTrainerThroughID(Long id) {

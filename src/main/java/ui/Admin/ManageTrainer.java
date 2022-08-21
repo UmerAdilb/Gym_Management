@@ -72,7 +72,7 @@ public class ManageTrainer {
 //
 //    }
 ManageTrainer(){
-    JFrame frame = new JFrame("All Planes Panel");
+    JFrame frame = new JFrame("TRAINER");
 
 
     JPanel panelBtn = new JPanel();

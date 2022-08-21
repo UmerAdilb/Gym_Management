@@ -1,63 +1,137 @@
 package ui.Admin;
 
+import domain.Member;
+import services.MemberService;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class EditMemberAdmin {
-    EditMemberAdmin() {
-        JFrame frame = new JFrame("Add Planes Panel");
+    EditMemberAdmin(Member member) {
 
-        JLabel memberNameLb = new JLabel("Name");
-        memberNameLb.setBounds(200, 60, 150, 100);
-        JTextField memberNameTf = new JTextField();
-        memberNameTf.setBounds(270, 100, 150, 20);
-//        memberNameTf.setText();
+        JFrame frame = new JFrame("Edit Member");
+        Container container = frame.getContentPane();
 
-        JLabel contactnoLb = new JLabel("Contact Number");
-        contactnoLb.setBounds(200, 110, 150, 100);
-        JTextField contactnoTf = new JTextField();
-        contactnoTf.setBounds(270, 150, 150, 20);
-//        contactnoTf.setText();
+        JPanel topPanel = new JPanel();
+        JPanel bottomPanel = new JPanel();
 
-        JLabel timingLb = new JLabel("Timing");
-        timingLb.setBounds(200, 160, 150, 100);
-        JTextField timingTf = new JTextField();
-        timingTf.setBounds(270, 200, 150, 20);
-//        timingTf.setText();
+        topPanel.setLayout(null);
+        bottomPanel.setLayout(null);
 
-        JButton btnupdatemember = new JButton();
-        btnupdatemember.setBounds(200, 300, 100, 50);
-        btnupdatemember.setText("Update");
+        topPanel.setBackground(Color.GRAY);
+        topPanel.setBounds(0, 0, 1000, 100);
+        bottomPanel.setBackground(Color.lightGray);
+        bottomPanel.setBounds(0, 100, 1000, 800);
 
-        JButton backBtn = new JButton();
-        backBtn.setBounds(300, 300, 100, 50);
-        backBtn.setText("Back");
+        JLabel title = new JLabel("ADD Member");
+
+        JLabel memberN = new JLabel("Member Name");
+        JTextField memberName = new JTextField(10);
+         memberName.setText(member.getName());
+
+        JLabel gender = new JLabel("Gender");
+        JTextField genderTf = new JTextField(10);
+           genderTf.setText(member.getGender());
+
+        JLabel age = new JLabel("Age");
+         JTextField ageTf = new JTextField(10);
+      ageTf.setText(member.getAge().toString());
+
+        JLabel contact = new JLabel("Contact");
+        JTextField contactTf = new JTextField(10);
+         contactTf.setText(member.getContact());
+
+        JLabel address = new JLabel("Address");
+        JTextField addressTf = new JTextField(10);
+        addressTf.setText(member.getAddress());
+
+        JLabel status = new JLabel("Status");
+        JTextField statustf = new JTextField(10);
+          statustf.setText(member.getStatus());
+
+        JLabel groupId = new JLabel("Group ID");
+        JTextField groupidtf = new JTextField(10);
+        groupidtf.setText(member.getGroupId().toString());
+
+        JButton editButton = new JButton("Edit");
+
+        JButton backButton = new JButton(">");
 
 
-        frame.add(memberNameLb);
-        frame.add(memberNameTf);
-        frame.add(contactnoLb);
-        frame.add(contactnoTf);
-        frame.add(timingLb);
-        frame.add(timingTf);
-        frame.add(btnupdatemember);
-        frame.add(backBtn);
 
-        btnupdatemember.addActionListener(btn -> {
+        memberN.setBounds(250, 50, 150, 35);
+        memberName.setBounds(400, 50, 150, 35);
+
+        gender.setBounds(250,100,150,35);
+        genderTf.setBounds(400,100,150,35);
+
+        age.setBounds(250, 150, 150, 35);
+        ageTf.setBounds(400, 150, 150, 35);
+
+        contact.setBounds(250, 200, 150, 35);
+        contactTf.setBounds(400, 200, 150, 35);
+
+        address.setBounds(250, 250, 150, 35);
+        addressTf.setBounds(400, 250, 150, 35);
+
+        status.setBounds(250, 300, 150, 35);
+        statustf.setBounds(400, 300, 150, 35);
+
+        groupId.setBounds(250, 350, 150, 35);
+        groupidtf.setBounds(400, 350, 150, 35);
+
+
+        backButton.setBounds(900,5,50,50);
+        editButton.setBounds(500, 450, 150, 35);
+
+        editButton.addActionListener(btn->{
+            String _name = memberName.getText();
+            String _gender = genderTf.getText();
+            Integer _age = Integer.valueOf(ageTf.getText());
+            String _contact = contactTf.getText();
+            String _address = addressTf.getText();
+            String _status = statustf.getText();
+            Long _groupid = Long.parseLong(groupidtf.getText());
+            Boolean updateMember = MemberService.updateMember(member.getId(), _name,_gender,_age,_contact,_address,_status,_groupid);
+
+            if(updateMember){
+                JOptionPane.showMessageDialog(frame,"Member Edited Succesfully");
+            }else {
+                JOptionPane.showMessageDialog(frame,"Error! Member not Edited");
+            }
 
         });
 
-        backBtn.addActionListener(btn -> {
+        backButton.addActionListener(btn->{
             frame.dispose();
             new ManageMember();
         });
 
+        topPanel.add(title);
+        bottomPanel.add(memberN);
+        bottomPanel.add(memberName);
+        bottomPanel.add(gender);
+        bottomPanel.add(genderTf);
+        bottomPanel.add(age);
+        bottomPanel.add(ageTf);
+        bottomPanel.add(contact);
+        bottomPanel.add(contactTf);
+        bottomPanel.add(address);
+        bottomPanel.add(addressTf);
+        bottomPanel.add(groupId);
+        bottomPanel.add(status);
+        bottomPanel.add(statustf);
+        bottomPanel.add(groupidtf);
+        bottomPanel.add(editButton);
+        bottomPanel.add(backButton);
 
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER,120,25));
+        container.add(topPanel);
+        container.add(bottomPanel);
+
         frame.setLayout(null);
-        frame.setSize(600, 600);
+        frame.setSize(1000,1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+
     }
 }

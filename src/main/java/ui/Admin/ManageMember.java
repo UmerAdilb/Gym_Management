@@ -1,66 +1,85 @@
 package ui.Admin;
 
+import services.MemberService;
+import services.TrainerService;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ManageMember {
     public ManageMember() {
-        JFrame frame = new JFrame("MEMBER'S");
-        Container c=frame.getContentPane();
-
-        JPanel panel1 = new JPanel();
-        JPanel panel2 = new JPanel();
-
-        panel1.setLayout(null);
-        panel2.setLayout(null);
-
-        panel1.setBackground(Color.cyan);
-        panel1.setBounds(0, 5, 985, 100);
-        panel2.setBounds(10, 250, 900, 700);
+        JFrame frame = new JFrame("MEMBERS PANEL");
 
 
-        JButton btnAdd=new JButton("ADD");
-        btnAdd.setBounds(75, 30, 130, 30);
+        JPanel panelBtn = new JPanel();
+        JPanel panelView = new JPanel();
 
-        JButton btnUpdate = new JButton("UPDATE");
-        btnUpdate.setBounds(275, 30, 130, 30);
+        String column[]={"Id","Name","Gender","Age","Contact","Address","Status","Group ID"};
+        String data[][] = MemberService.getAllMembersForJTable(column.length);
 
-        JButton btnDelete = new JButton("DELETE");
-        btnDelete.setBounds(475, 30, 130, 30);
 
-        JButton back = new JButton("Back");
-        back.setBounds(675, 30, 130, 30);
+        JTable tbl=new JTable(data,column);
 
-        btnUpdate.addActionListener(bk->{
+
+        panelView.setLayout(new BorderLayout());
+        panelBtn.setBackground(Color.gray);
+        frame.getContentPane().add(panelView);
+        frame.getContentPane().add(panelBtn);
+
+        JScrollPane sp1=new JScrollPane(tbl);
+        panelView.add(sp1);
+        panelView.add(sp1,BorderLayout.CENTER);
+        panelView.setBounds(0,0,600,500);
+        panelBtn.setBounds(20,550,500,100);
+
+        JButton btnAddMember = new JButton();
+        btnAddMember.setBounds(20,20,150,30);
+        btnAddMember.setFocusable(false);
+        btnAddMember.setText("Add");
+        JButton btnEditMember = new JButton();
+        btnEditMember.setBounds(40,20,150,30);
+        btnEditMember.setFocusable(false);
+        btnEditMember.setText("Edit");
+        JButton btnDeleteMember = new JButton();
+        btnDeleteMember.setBounds(60,20,150,30);
+        btnDeleteMember.setFocusable(false);
+        btnDeleteMember.setText("Delete");
+        JButton btnBack = new JButton();
+        btnBack.setBounds(80,20,150,30);
+        btnBack.setFocusable(false);
+        btnBack.setText("Back");
+
+        panelBtn.add(btnAddMember);
+        panelBtn.add(btnEditMember);
+        panelBtn.add(btnDeleteMember);
+        panelBtn.add(btnBack);
+
+        btnEditMember.addActionListener(fl->{
             frame.dispose();
             new UpdateMemberAdmin();
         });
 
-
-        panel1.add(btnAdd);
-        panel1.add(btnUpdate);
-        panel1.add(btnDelete);
-        panel1.add(back);
-
-        back.addActionListener(bk -> {
-            frame.dispose();
-            new MainAdminUi();
-        });
-        btnAdd.addActionListener(bk->{
+        btnAddMember.addActionListener(btn->{
             frame.dispose();
             new AddMemberAdmin();
         });
-        btnDelete.addActionListener(bk->{
+
+        btnBack.addActionListener(btn->{
+            frame.dispose();
+            new MainAdminUi();
+        });
+        btnDeleteMember.addActionListener(fl->{
             frame.dispose();
             new DeleteMemberAdmin();
         });
 
-        c.add(panel1);
-        c.add(panel2);
-
+        frame.setSize(800, 800);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
-        frame.setSize(1000,1000);
         frame.setVisible(true);
 
+        panelBtn.setVisible(true);
+        panelView.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 }
