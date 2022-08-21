@@ -1,5 +1,8 @@
 package ui.Admin;
 
+import services.MemberService;
+import services.TrainerService;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,13 +36,13 @@ public class AddMemberAdmin {
         JLabel contact = new JLabel("Contact");
         JTextField contactTf = new JTextField(10);
 
-        JLabel address = new JLabel("Adress");
+        JLabel address = new JLabel("Address");
         JTextField addressTf = new JTextField(10);
 
 
 
-        JLabel timing = new JLabel("Timing");
-        JTextField timingTf = new JTextField(10);
+        JLabel groupId = new JLabel("Group ID");
+        JTextField groupidtf = new JTextField(10);
 
         JButton Add = new JButton("Add");
 
@@ -62,13 +65,26 @@ public class AddMemberAdmin {
         address.setBounds(250, 250, 150, 35);
         addressTf.setBounds(400, 250, 150, 35);
 
-        timing.setBounds(250, 300, 150, 35);
-        timingTf.setBounds(400, 300, 150, 35);
+        groupId.setBounds(250, 300, 150, 35);
+        groupidtf.setBounds(400, 300, 150, 35);
 
         backButton.setBounds(900,5,50,50);
         Add.setBounds(400, 350, 150, 35);
 
         Add.addActionListener(btn->{
+            String _name = memberName.getText();
+            String _gender = genderTf.getText();
+            Integer _age = Integer.valueOf(ageTf.getText());
+            String _contact = contactTf.getText();
+            String _address = addressTf.getText();
+            Long _groupid = Long.parseLong(groupidtf.getText());
+            Boolean addmember = MemberService.addMember(_name,_gender,_age,_contact,_address,"ACTIVE",_groupid);
+
+            if(addmember){
+                JOptionPane.showMessageDialog(frame,"Member Added Succesfully");
+            }else {
+                JOptionPane.showMessageDialog(frame,"Error! Member not added");
+            }
 
         });
 
@@ -88,8 +104,8 @@ public class AddMemberAdmin {
         bottomPanel.add(contactTf);
         bottomPanel.add(address);
         bottomPanel.add(addressTf);
-        bottomPanel.add(timing);
-        bottomPanel.add(timingTf);
+        bottomPanel.add(groupId);
+        bottomPanel.add(groupidtf);
         bottomPanel.add(Add);
         bottomPanel.add(backButton);
 

@@ -1,5 +1,8 @@
 package ui.Admin;
 
+import domain.Member;
+import services.MemberService;
+
 import javax.swing.*;
 
 public class UpdateMemberAdmin {
@@ -31,7 +34,15 @@ public class UpdateMemberAdmin {
         btnNext.addActionListener(btn->{
 
             frame.dispose();
-            new EditMemberAdmin();
+           Member member =  MemberService.checkMemberbyId(Long.parseLong(MemberidTf.getText()));
+           if (member != null){
+               frame.dispose();
+               new EditMemberAdmin(member);
+
+           }else {
+               JOptionPane.showMessageDialog(frame,"Error! Member not exists");
+           }
+
 
         });
 
