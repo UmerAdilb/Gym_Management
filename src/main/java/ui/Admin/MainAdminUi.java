@@ -22,7 +22,7 @@ public class MainAdminUi {
         JButton btnpackages = new JButton();
         btnpackages.setBounds(150,200,150,30);
         btnpackages.setFocusable(true);
-        btnpackages.setText("Manage Packages");
+        btnpackages.setText("Manage Groups");
 
         JButton btnattendance = new JButton();
         btnattendance.setBounds(150,250,150,30);
@@ -63,7 +63,7 @@ public class MainAdminUi {
         });
         btnpackages.addActionListener(el->{
             frame.dispose();
-            new ManagePackages();
+            new ManageGroups();
         });
         btnattendance.addActionListener(el->{
             frame.dispose();

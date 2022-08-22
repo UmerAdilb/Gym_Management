@@ -1,20 +1,20 @@
 package ui.Admin;
 
-import services.MemberService;
+import services.GroupService;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ManageMember {
-    public ManageMember() {
-        JFrame frame = new JFrame("MEMBERS PANEL");
+public class ManageGroups {
+    public ManageGroups() {
+        JFrame frame = new JFrame("GROUPS PANEL");
 
 
         JPanel panelBtn = new JPanel();
         JPanel panelView = new JPanel();
 
-        String column[]={"Id","Name","Gender","Age","Contact","Address","Status","Group ID"};
-        String data[][] = MemberService.getAllMembersForJTable(column.length);
+        String column[]={"Id","Name","Timing","Type","Trainer Id"};
+        String data[][] = GroupService.getallgroups(column.length);
 
 
         JTable tbl=new JTable(data,column);
@@ -31,45 +31,45 @@ public class ManageMember {
         panelView.setBounds(0,0,600,500);
         panelBtn.setBounds(20,550,500,100);
 
-        JButton btnAddMember = new JButton();
-        btnAddMember.setBounds(20,20,150,30);
-        btnAddMember.setFocusable(false);
-        btnAddMember.setText("Add");
-        JButton btnEditMember = new JButton();
-        btnEditMember.setBounds(40,20,150,30);
-        btnEditMember.setFocusable(false);
-        btnEditMember.setText("Edit");
-        JButton btnDeleteMember = new JButton();
-        btnDeleteMember.setBounds(60,20,150,30);
-        btnDeleteMember.setFocusable(false);
-        btnDeleteMember.setText("Delete");
+        JButton btnAddGroup = new JButton();
+        btnAddGroup.setBounds(20,20,150,30);
+        btnAddGroup.setFocusable(false);
+        btnAddGroup.setText("Add");
+        JButton btnEditGroup = new JButton();
+        btnEditGroup.setBounds(40,20,150,30);
+        btnEditGroup.setFocusable(false);
+        btnEditGroup.setText("Edit");
+        JButton btnDeleteGroup = new JButton();
+        btnDeleteGroup.setBounds(60,20,150,30);
+        btnDeleteGroup.setFocusable(false);
+        btnDeleteGroup.setText("Delete");
         JButton btnBack = new JButton();
         btnBack.setBounds(80,20,150,30);
         btnBack.setFocusable(false);
         btnBack.setText("Back");
 
-        panelBtn.add(btnAddMember);
-        panelBtn.add(btnEditMember);
-        panelBtn.add(btnDeleteMember);
+        panelBtn.add(btnAddGroup);
+        panelBtn.add(btnEditGroup);
+        panelBtn.add(btnDeleteGroup);
         panelBtn.add(btnBack);
 
-        btnEditMember.addActionListener(fl->{
+        btnEditGroup.addActionListener(fl->{
             frame.dispose();
-            new UpdateMemberAdmin();
+            new UpdateGroupAdmin();
         });
 
-        btnAddMember.addActionListener(btn->{
+        btnAddGroup.addActionListener(btn->{
             frame.dispose();
-            new AddMemberAdmin();
+            new AddGroupAdmin();
         });
 
         btnBack.addActionListener(btn->{
             frame.dispose();
             new MainAdminUi();
         });
-        btnDeleteMember.addActionListener(fl->{
+        btnDeleteGroup.addActionListener(fl->{
             frame.dispose();
-            new DeleteMemberAdmin();
+            new DeleteGroupAdmin();
         });
 
         frame.setSize(800, 800);
