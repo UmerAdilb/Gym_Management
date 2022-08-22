@@ -34,7 +34,7 @@ public class AddMember {
         JLabel contact = new JLabel("Contact");
         JTextField contactTf = new JTextField(10);
 
-        JLabel address = new JLabel("Adress");
+        JLabel address = new JLabel("Address");
         JTextField addressTf = new JTextField(10);
 
 
