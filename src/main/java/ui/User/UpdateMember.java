@@ -2,6 +2,9 @@ package ui.User;
 
 
 
+import domain.Member;
+import services.MemberService;
+
 import javax.swing.*;
 
 public class UpdateMember {
@@ -31,17 +34,17 @@ public class UpdateMember {
         frame.add(backBtn);
 
         btnNext.addActionListener(btn->{
-//            String memberid = MemberidTf.getText();
-//
-//            Aeroplane aero = PlaneService.searchAeroplane(memberid);
-//            if (aero != null){
-                EditMemberForm editplaneforme= new EditMemberForm();
-                frame.dispose();
-//            }else{
-//
-//                JOptionPane.showMessageDialog(frame,"No Aeroplane Exists with this name");
-//
-//            }
+           Member member =  MemberService.checkMemberbyId(Long.parseLong(MemberidTf.getText()));
+
+           if (member != null){
+               frame.dispose();
+               new EditMemberForm(member);
+
+           }else {
+               JOptionPane.showMessageDialog(frame,"Error! Member not exists");
+           }
+
+
         });
 
         backBtn.addActionListener(btn->{
