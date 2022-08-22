@@ -36,7 +36,6 @@ public class DeleteMemberAdmin {
 
         btnDelete.addActionListener(btn->{
 
-            frame.dispose();
             Boolean delete =  MemberService.deleteMember(Long.parseLong(MemberidTf.getText()));
             if (delete){
                 JOptionPane.showMessageDialog(frame,"Member Deleted");
