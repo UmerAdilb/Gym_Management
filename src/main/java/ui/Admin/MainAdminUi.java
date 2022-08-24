@@ -67,7 +67,7 @@ public class MainAdminUi {
         });
         btnattendance.addActionListener(el->{
             frame.dispose();
-            new ManageAttendance();
+//            new ManageAttendance();
         });
         btnreport.addActionListener(el->{
             frame.dispose();
