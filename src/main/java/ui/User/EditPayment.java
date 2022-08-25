@@ -1,6 +1,5 @@
 package ui.User;
 
-import domain.Member;
 import domain.Payment;
 import services.MemberService;
 import services.PaymentService;
@@ -8,9 +7,9 @@ import services.PaymentService;
 import javax.swing.*;
 import java.awt.*;
 
-public class AddPayment {
-    public AddPayment(){
-        JFrame frame = new JFrame("Add Payment");
+public class EditPayment {
+    EditPayment(Payment payment){
+        JFrame frame = new JFrame("Edit Payment");
         Container container = frame.getContentPane();
 
         JPanel topPanel = new JPanel();
@@ -24,7 +23,7 @@ public class AddPayment {
         bottomPanel.setBackground(Color.lightGray);
         bottomPanel.setBounds(0, 100, 1000, 800);
 
-        JLabel title = new JLabel("ADD PAYMENT");
+        JLabel title = new JLabel("Edit PAYMENT");
 
         JLabel basicFees = new JLabel("Basic fees");
         JTextField basicFeesTf = new JTextField(10);
@@ -51,8 +50,7 @@ public class AddPayment {
         JTextField memberIdTf = new JTextField(10);
 
 
-        JButton Add = new JButton("Add");
-        JButton generatereceipt = new JButton("Generate Receipt");
+        JButton update = new JButton("Update");
         JButton backButton = new JButton(">");
 
 
@@ -83,38 +81,27 @@ public class AddPayment {
 
 
         backButton.setBounds(900,5,50,50);
-        Add.setBounds(400, 550, 150, 35);
-        generatereceipt.setBounds(385,600,180,35);
+        update.setBounds(400, 550, 150, 35);
 
-        Add.addActionListener(btn->{
+        update.addActionListener(btn->{
             Double _basicFees = Double.parseDouble(basicFeesTf.getText());
-            Double _feesPaid = Double.parseDouble(feesPaidTf.getText());
-            Double _feesRemaining = Double.parseDouble(feesRemainingTf.getText());
+            Double _feesRemaining = Double.parseDouble(feesPaidTf.getText());
+            Double _feesPaid = Double.parseDouble(feesRemainingTf.getText());
             String _feesStatus = feesStatusTf.getText();
             String _date = dateTf.getText();
             String _month = monthTf.getText();
             String _year = yearTf.getText();
             Long _memberId = Long.parseLong(memberIdTf.getText());
-            Boolean addPay = PaymentService.addPayment(_basicFees,_feesPaid,_feesRemaining,_feesStatus,_date,_month,_year,_memberId);
-            if (addPay){
-                JOptionPane.showMessageDialog(frame,"Record Added Succesfully");
+            Boolean updatePay = PaymentService.updatePayment(payment.getId(),_basicFees,_feesPaid,_feesRemaining,_feesStatus,_date,_month,_year,_memberId);
+            if (updatePay){
+                JOptionPane.showMessageDialog(frame,"Record Update Succesfully");
             }else {
-                JOptionPane.showMessageDialog(frame,"Error! Record not added");
+                JOptionPane.showMessageDialog(frame,"Error! Record not Updated");
             }
+
+
         });
 
-        generatereceipt.addActionListener(btn->{
-//            Double _basicFees = Double.parseDouble(basicFeesTf.getText());
-//            Double _feesRemaining = Double.parseDouble(feesPaidTf.getText());
-//            Double _feesPaid = Double.parseDouble(feesRemainingTf.getText());
-//            String _feesStatus = feesStatusTf.getText();
-            String _date = dateTf.getText();
-            String _month = monthTf.getText();
-            String _year = yearTf.getText();
-            Long _memberId = Long.parseLong(memberIdTf.getText());
-            Payment pay = PaymentService.ShowPaymentOfSpecificMember(_date,_month,_year,_memberId);
-                new GeneratePaymentReceipt(pay);
-        });
 
         backButton.addActionListener(btn->{
             frame.dispose();
@@ -138,9 +125,8 @@ public class AddPayment {
         bottomPanel.add(yearTf);
         bottomPanel.add(memberId);
         bottomPanel.add(memberIdTf);
-        bottomPanel.add(Add);
+        bottomPanel.add(update);
         bottomPanel.add(backButton);
-        bottomPanel.add(generatereceipt);
 
         container.add(topPanel);
         container.add(bottomPanel);
@@ -151,7 +137,6 @@ public class AddPayment {
         frame.setVisible(true);
 
     }
-
 
     }
 

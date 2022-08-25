@@ -1,9 +1,11 @@
 package repository;
 
+
 import domain.Payment;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +78,53 @@ List<Payment> paylist = new ArrayList<>();
             return false; }
 
     }
+
+    public Payment getspecificPayments( String date, String month, String year, Long memberId) {
+
+           Payment pay = new Payment();
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from payment where member_id ="+memberId+" and date='"+date+"' and month='"+month+"' and year='"+year+"' ;");
+            while (rs.next()){
+                pay.populate(rs);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pay;
+    }
+
+    public Payment getPaymentbyId(Long id) {
+        Payment payment = new Payment();
+
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from payment where id= "+id+" ");
+
+            while (rs.next()){
+                payment.populate(rs);
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return payment;
+    }
+
+    public boolean updatePaymentId(Long id,Double basicFees, Double feesPaid, Double feesRemaining, String feesStatus, String date, String month, String year, Long memberId){
+        try{
+            if(con.isClosed()){
+                openConnection();
+            }
+            Statement st = con.createStatement();
+
+            st.executeUpdate("update payment set basic_fees = '"+basicFees+"', fees_paid = '"+feesPaid+"', fees_remaining = "+feesRemaining+"" +
+                    ", fees_status = '"+feesStatus+"', date = '"+date+"', month = '"+month+"', year = "+year+" where member_id = "+memberId+" ");
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  false;}
+    }
+
 }
 

@@ -1,6 +1,8 @@
 package services;
 
+import domain.Member;
 import domain.Payment;
+import repository.MemberRepository;
 import repository.PaymentRepository;
 
 import java.util.List;
@@ -31,4 +33,24 @@ public class PaymentService {
        return false;
    }
     }
+
+
+    public static Payment ShowPaymentOfSpecificMember( String date, String month, String year, Long memberId) {
+        PaymentRepository paymentRepository = new PaymentRepository();
+        Payment pay = paymentRepository.getspecificPayments(date,month,year,memberId);
+        return pay;
+    }
+
+    public static Payment checkPaymentbyId(Long id) {
+        PaymentRepository paymentRepository = new PaymentRepository();
+        Payment payment = paymentRepository.getPaymentbyId(id);
+        return payment;
+    }
+
+    public static Boolean updatePayment(Long id,Double basicFees, Double feesPaid, Double feesRemaining, String feesStatus, String date, String month, String year, Long memberId) {
+        PaymentRepository paymentRepository = new PaymentRepository();
+        Boolean update = paymentRepository.updatePaymentId(id,basicFees,feesPaid,feesRemaining,feesStatus,date,month,year,memberId);
+        return update;
+    }
+
 }
