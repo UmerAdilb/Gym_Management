@@ -62,4 +62,11 @@ return update;
             return false;
         }
     }
+
+    public static Member checkMemberbyContact(String contact) {
+        MemberRepository memberRepository = new MemberRepository();
+        Member member = memberRepository.getMemberbyContacct(contact);
+        return member;
+
+    }
 }

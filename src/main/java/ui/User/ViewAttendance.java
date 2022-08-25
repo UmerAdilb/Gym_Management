@@ -1,6 +1,8 @@
 package ui.User;
 
+import domain.Member;
 import services.AttendanceService;
+import services.MemberService;
 import services.PaymentService;
 
 import javax.swing.*;
@@ -18,14 +20,14 @@ public class ViewAttendance {
 
         panel2.setBackground(Color.lightGray);
         panel1.setBounds(0,0,760,200);
-        panel2.setBounds(0,105,760,660);
+        panel2.setBounds(0,250,760,500);
 
 
         JLabel memberidLb = new JLabel("Enter the Member Details to Search attendance");
         memberidLb.setBounds(25,20,250,20);
         JTextField memberidTf = new JTextField();
         memberidTf.setBounds(300,20,200,20);
-
+memberidTf.setText("Member Id");
         JRadioButton id=new JRadioButton("Member Id");
         JRadioButton contactno=new JRadioButton("Contact No");
         id.setBounds(100,50,100,30);
@@ -40,13 +42,10 @@ public class ViewAttendance {
         backBtn.setText("Back");
 
 
-        String[] date={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
-        JComboBox<String> da = new JComboBox<>(date);
-        da.setBounds(550,20,150,20);
-        String[] months = { "january","feburary", "march","april","may","june","july","august","september","october","november","december"};
+        String[] months = { "january","february", "march","april","may","june","july","august","september","october","november","december"};
         JComboBox<String> mo = new JComboBox<>(months);
         mo.setBounds(550,60,150,20);
-        String[] year = { "2022","2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"};
+        String[] year = {"2022","2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"};
         JComboBox<String> ye = new JComboBox<>(year);
         ye.setBounds(550,100,150,20);
 
@@ -60,17 +59,25 @@ public class ViewAttendance {
 
 
         btnsearch.addActionListener(fl->{
-//            String _date = da.getSelectedItem().toString();
-//            String _month = mo.getSelectedItem().toString();
-//            String _year = ye.getSelectedItem().toString();
-//            Long _memberid = Long.parseLong(member.getId().toString());
-//            Boolean markattend = AttendanceService.AddAttendance(_date,_month,_year,_memberid);
-//
-//            if(markattend){
-//                JOptionPane.showMessageDialog(frame,"Attendance marked");
-//            }else {
-//                JOptionPane.showMessageDialog(frame,"Error!");
+//            Member member = null;
+//            if (id.isSelected()){
+//                member = MemberService.checkMemberbyId(Long.parseLong(memberidTf.getText()));
+//            }else{
+//                JOptionPane.showMessageDialog(f,"Please select the field");
 //            }
+
+
+            String _month = mo.getSelectedItem().toString();
+            String _year = ye.getSelectedItem().toString();
+            String _memberid = memberidTf.getText();
+            String column[]={"Member Id","Day","Month","Year","Present"};
+            String data[][] = AttendanceService.getAllAttendanceForJTable(column.length,_month
+                    ,_year,_memberid);
+            JTable jt=new JTable(data,column);
+            JScrollPane sp=new JScrollPane(jt);
+            sp.setBounds(15,0,700,300);
+            panel2.add(sp);
+
         });
 
 
@@ -82,13 +89,11 @@ public class ViewAttendance {
         panel1.add(btnsearch);
         panel1.add(backBtn);
 
-        panel1.add(da);
-        panel1.add(mo);
+       panel1.add(mo);
         panel1.add(ye);
 
         c.add(panel1);
         c.add(panel2);
-        da.setVisible(true);
         mo.setVisible(true);
         ye.setVisible(true);
         f.setLayout(null);

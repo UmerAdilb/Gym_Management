@@ -23,16 +23,16 @@ public class ManageAttendance {
         btndeactivatemembers.setBounds(100, 300, 250, 30);
         btndeactivatemembers.setFocusable(false);
         btndeactivatemembers.setText("De ACTIVATE MEMBERS");
-        JButton btnLogout = new JButton();
-        btnLogout.setBounds(150, 400, 150, 30);
-        btnLogout.setFocusable(false);
-        btnLogout.setText("Logout");
+        JButton btnBack = new JButton();
+        btnBack.setBounds(150, 400, 150, 30);
+        btnBack.setFocusable(false);
+        btnBack.setText("BACK");
 
 
         frame.add(btnaddattendance);
         frame.add(btnviewattendance);
         frame.add(btndeactivatemembers);
-        frame.add(btnLogout);
+        frame.add(btnBack);
         btnaddattendance.addActionListener(btn -> {
             frame.dispose();
             new MarkAttendnce();
@@ -45,9 +45,9 @@ public class ManageAttendance {
             frame.dispose();
             new DeActivateMembers();
         });
-        btnLogout.addActionListener(el -> {
+        btnBack.addActionListener(el -> {
             frame.dispose();
-            new LoginUi();
+            new MainUserUi();
         });
 
 

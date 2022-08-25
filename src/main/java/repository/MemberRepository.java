@@ -2,6 +2,7 @@ package repository;
 
 import domain.Member;
 import domain.Trainer;
+import jdk.net.SocketFlow;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -100,6 +101,54 @@ public class MemberRepository extends BaseConnection{
         }catch (Exception e){
             e.printStackTrace();}
         return false; }
+
+    public Member getMemberbyContacct(String contact) {
+        Member mem = new Member();
+
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from member where contact= "+contact+" ");
+
+            while (rs.next()){
+                mem.populate(rs);
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return mem;
+    }
+
+    public List<Member> getAllAbsentMembers(Integer today, Integer yesterday, Integer dayBeforeyes) {
+        List<Member> members = new ArrayList<>();
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from member where id not in (select member_id from attendance where date in ('"+today+"','"+yesterday+"','"+dayBeforeyes+"') ) and status= 'ACTIVE';");
+
+            while (rs.next()){
+                Member mem = new Member();
+                mem.populate(rs);
+                members.add(mem);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return members;
+
+    }
+    public boolean updateMemberStatus(String id,String status){
+        try{
+            if(con.isClosed()){
+                openConnection();
+            }
+            Statement st = con.createStatement();
+
+            st.executeUpdate("update member set status = '"+status+"'  where id = "+id+" ");
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  false;}
+    }
 
 }
 

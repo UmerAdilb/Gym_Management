@@ -43,8 +43,14 @@ public class MarkAttendnce  {
         frame.add(backBtn);
 
         btnNext.addActionListener(btn->{
-            Member member =  MemberService.checkMemberbyId(Long.parseLong(memberidTf.getText()));
-
+            Member member = null;
+            if (id.isSelected()){
+            member = MemberService.checkMemberbyId(Long.parseLong(memberidTf.getText()));
+            }else if (contactno.isSelected()){
+                member = MemberService.checkMemberbyContact(memberidTf.getText());
+            }else{
+                JOptionPane.showMessageDialog(frame,"Please select the field");
+            }
             if (member != null){
                 frame.dispose();
                 new MarkMemberAttendance(member);
