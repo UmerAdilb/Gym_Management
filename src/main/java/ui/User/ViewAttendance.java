@@ -43,7 +43,7 @@ public class ViewAttendance {
         String[] date={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
         JComboBox<String> da = new JComboBox<>(date);
         da.setBounds(550,20,150,20);
-        String[] months = { "january","feburary", "march","april","may","june","july","august","september","october","november","december"};
+        String[] months = { "january","february", "march","april","may","june","july","august","september","october","november","december"};
         JComboBox<String> mo = new JComboBox<>(months);
         mo.setBounds(550,60,150,20);
         String[] year = { "2022","2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"};

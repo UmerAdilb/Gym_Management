@@ -15,7 +15,7 @@ public class PaymentReceipt {
 
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
-JPanel panel3 = new JPanel();
+        JPanel panel3 = new JPanel();
         panel1.setLayout(null);
         panel2.setLayout(null);
         panel3.setLayout(null);
@@ -52,24 +52,27 @@ JPanel panel3 = new JPanel();
             new MainUserUi();
         });
         JButton addPayment = new JButton("Add Payment");
-        addPayment.setBounds(50,120,120,30);
+        addPayment.setBounds(50,120,150,30);
 
         JButton updatePayment = new JButton("Update Payment");
-        updatePayment.setBounds(250,120,120,30);
-
+        updatePayment.setBounds(250,120,150,30);
 
         addPayment.addActionListener(fl->{
             f.dispose();
             new AddPayment();
         });
 
+        updatePayment.addActionListener(btn->{
+            f.dispose();
+            new UpdatePayment();
+        });
 
 
         panel1.add(monthTF);
         panel1.add(yearTF);
         panel1.add(search);
         panel1.add(back);
-panel1.add(memIdTF);
+        panel1.add(memIdTF);
         search.addActionListener(btn->{
             String column[]={"Id","Basic Fees","Fees Paid","Fees Remaining","Fees Status","Date","Month","Year","Member ID"};
             String data[][] = PaymentService.getAllPaymentsForJTable(column.length,monthTF.getText(),yearTF.getText(),memIdTF.getText());
@@ -88,6 +91,7 @@ panel1.add(memIdTF);
 panel3.add(addPayment);
 panel3.add(updatePayment);
 
+
         c.add(panel1);
         c.add(panel2);
         c.add(panel3);
@@ -97,6 +101,10 @@ panel3.add(updatePayment);
         f.setLocationRelativeTo(null);
 
         search.doClick();
+    }
+
+    public static void main(String[] args) {
+        new PaymentReceipt();
     }
 
 }
