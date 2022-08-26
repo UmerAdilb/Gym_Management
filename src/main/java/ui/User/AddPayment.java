@@ -114,6 +114,7 @@ public class AddPayment {
             Long _memberId = Long.parseLong(memberIdTf.getText());
             Payment pay = PaymentService.ShowPaymentOfSpecificMember(_date,_month,_year,_memberId);
                 new GeneratePaymentReceipt(pay);
+
         });
 
         backButton.addActionListener(btn->{

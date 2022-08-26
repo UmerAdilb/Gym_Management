@@ -2,7 +2,7 @@ package repository;
 
 import domain.Member;
 import domain.Trainer;
-import jdk.net.SocketFlow;
+
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -136,6 +136,7 @@ public class MemberRepository extends BaseConnection{
         return members;
 
     }
+
     public boolean updateMemberStatus(String id,String status){
         try{
             if(con.isClosed()){

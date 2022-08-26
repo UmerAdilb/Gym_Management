@@ -1,5 +1,6 @@
 package ui.Admin;
 
+import services.ReportAnalyticService;
 import ui.LoginUi;
 import ui.User.ManageAttendance;
 
@@ -70,13 +71,18 @@ public class MainAdminUi {
 //            new ManageAttendance();
         });
         btnreport.addActionListener(el->{
+
             frame.dispose();
-            new ManageReport();
+            new ManageReport(ReportAnalyticService.reportData());
         });
         btnLogout.addActionListener(el->{
             frame.dispose();
             new LoginUi();
         });
 
+    }
+
+    public static void main(String[] args) {
+        new MainAdminUi();
     }
 }
