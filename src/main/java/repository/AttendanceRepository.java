@@ -1,19 +1,16 @@
 package repository;
 
 import domain.Attendance;
-import domain.Member;
-import domain.Payment;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AttendanceRepository extends BaseConnection {
 
-    public Boolean addAttendance(Attendance attendance) {
+    public void addAttendance(Attendance attendance) {
         try {
             if (con.isClosed()) {
                 openConnection();
@@ -28,11 +25,11 @@ public class AttendanceRepository extends BaseConnection {
 
             int i = ps.executeUpdate();
             System.out.println(i + " records inserted");
-            return true;
+
 
         } catch (Exception e) {
             System.out.println(e);
-            return false;
+
         }
     }
 
@@ -58,7 +55,24 @@ public class AttendanceRepository extends BaseConnection {
     }
 
 
+    public Attendance checkAttendance(String date, String month, String year, String memberid) {
 
+        Attendance  attend = new Attendance();
+        try {
 
+            Statement st = con.createStatement() ;
+            ResultSet rs = st.executeQuery("select * from attendance where date='"+date+"' and month='"+month+"' and year = '"+year+"' and member_id ="+memberid+" ");
 
+            while (rs.next()) {
+
+                attend.populate(rs);
+
+            }
+            return attend;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    return null;}
 }

@@ -19,13 +19,16 @@ public class AttendanceService {
     public static boolean AddAttendance(String date, String month, String year,Long memberid){
 
         AttendanceRepository attendanceRepository = new AttendanceRepository();
+       Attendance at = attendanceRepository.checkAttendance(date,month,year,memberid.toString());
+        if (at != null){
+        return false;}
+        else {
         Attendance attendance = new Attendance(date,month,year,memberid);
+        attendanceRepository.addAttendance(attendance);
 
-        if (attendanceRepository.addAttendance(attendance)){
 
             return true;
         }
-        return false;
     }
 
 
@@ -128,4 +131,13 @@ public static String[][] getAbsentTable(int length){
         return false;
     }
 
+    public static boolean checkMemberIdPResent(String memberid) {
+       MemberRepository memberRepository = new MemberRepository();
+        List<Member> mems = memberRepository.getAllMembers();
+        Member mem = mems.stream().filter(fl->fl.getId().toString().equalsIgnoreCase(memberid)).findAny().orElse(null);
+
+        if (mem != null ){
+            return true;
+        }else {return false;}
+    }
 }

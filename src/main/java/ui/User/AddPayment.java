@@ -1,18 +1,17 @@
 package ui.User;
 
-import domain.Member;
 import domain.Payment;
-import services.MemberService;
 import services.PaymentService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class AddPayment {
     public AddPayment(){
         JFrame frame = new JFrame("Add Payment");
         Container container = frame.getContentPane();
-
+        Integer temp = 0;
         JPanel topPanel = new JPanel();
         JPanel bottomPanel = new JPanel();
 
@@ -86,6 +85,8 @@ public class AddPayment {
         Add.setBounds(400, 550, 150, 35);
         generatereceipt.setBounds(385,600,180,35);
 
+
+
         Add.addActionListener(btn->{
             Double _basicFees = Double.parseDouble(basicFeesTf.getText());
             Double _feesPaid = Double.parseDouble(feesPaidTf.getText());
@@ -95,12 +96,14 @@ public class AddPayment {
             String _month = monthTf.getText();
             String _year = yearTf.getText();
             Long _memberId = Long.parseLong(memberIdTf.getText());
-            Boolean addPay = PaymentService.addPayment(_basicFees,_feesPaid,_feesRemaining,_feesStatus,_date,_month,_year,_memberId);
+           Boolean  addPay = PaymentService.addPayment(_basicFees,_feesPaid,_feesRemaining,_feesStatus,_date,_month,_year,_memberId);
             if (addPay){
                 JOptionPane.showMessageDialog(frame,"Record Added Succesfully");
+
             }else {
                 JOptionPane.showMessageDialog(frame,"Error! Record not added");
             }
+
         });
 
         generatereceipt.addActionListener(btn->{
@@ -112,6 +115,11 @@ public class AddPayment {
             String _month = monthTf.getText();
             String _year = yearTf.getText();
             Long _memberId = Long.parseLong(memberIdTf.getText());
+       if (_memberId == null)
+       {
+           JOptionPane.showMessageDialog(frame,"Record Added Succesfully");
+       }
+
             Payment pay = PaymentService.ShowPaymentOfSpecificMember(_date,_month,_year,_memberId);
                 new GeneratePaymentReceipt(pay);
 
@@ -150,6 +158,7 @@ public class AddPayment {
         frame.setSize(1000,1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
 
     }
 

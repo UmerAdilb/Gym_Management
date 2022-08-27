@@ -53,4 +53,11 @@ public class PaymentService {
         return update;
     }
 
+
+
+    public static Payment getPaymentbycontact(String contact, String month, String year) {
+        PaymentRepository paymentRepository = new PaymentRepository();
+       Payment pay = paymentRepository.checkPayentthroughContactMonthYr(contact,month,year);
+      return pay;
+    }
 }
