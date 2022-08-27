@@ -23,11 +23,11 @@ public class LoginUi {
         JLabel errorLabel = new JLabel();
 
         JButton login = new JButton();
-        login.setBounds(200,300,150,30);
+        login.setBounds(200,500,150,30);
         login.setText("Login");
 
         JButton logout = new JButton();
-        logout.setBounds(200,400,150,30);
+        logout.setBounds(200,500,150,30);
         logout.setText("Close");
 
         login.addActionListener(btn->{

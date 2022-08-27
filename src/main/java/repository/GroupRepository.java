@@ -95,4 +95,21 @@ public class GroupRepository extends BaseConnection {
         }catch (Exception e){
             e.printStackTrace();}
         return false; }
+
+    public List<Group> getGroupsForuserPanel() {
+        List<Group> group = new ArrayList<>();
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select g.name, g.timing,g.type,t.name from member_groups g inner join trainer t on g.trainer_id = t.id;");
+
+            while (rs.next()){
+                Group gr = new Group();
+                gr.populateForUser(rs);
+                group.add(gr);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return group;
+    }
 }

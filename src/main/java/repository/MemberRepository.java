@@ -29,6 +29,29 @@ public class MemberRepository extends BaseConnection{
         return members;
     }
 
+    public List<Member> getAllMembersForLookUpMEmber(String contact){
+        List<Member> members = new ArrayList<>();
+        String query;
+        if (!contact.equalsIgnoreCase("Contact")){
+            query = "select * from member where contact='"+contact+"'";
+        }else {
+            query="select * from member";
+        }
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while (rs.next()){
+                Member mem = new Member();
+                mem.populate(rs);
+                members.add(mem);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return members;
+    }
+
     public Boolean addMember(Member member) {
         try {
             if(con.isClosed()){

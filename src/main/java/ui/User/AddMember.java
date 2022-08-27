@@ -1,5 +1,9 @@
 package ui.User;
 
+import services.GroupService;
+import services.MemberService;
+import ui.Admin.ManageMember;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,9 +20,9 @@ public class AddMember {
         bottomPanel.setLayout(null);
 
         topPanel.setBackground(Color.GRAY);
-        topPanel.setBounds(0, 0, 1000, 100);
+        topPanel.setBounds(0, 0, 800, 100);
         bottomPanel.setBackground(Color.lightGray);
-        bottomPanel.setBounds(0, 100, 1000, 800);
+        bottomPanel.setBounds(0, 100, 800, 800);
 
         JLabel title = new JLabel("ADD Member");
 
@@ -39,8 +43,8 @@ public class AddMember {
 
 
 
-        JLabel timing = new JLabel("Timing");
-        JTextField timingTf = new JTextField(10);
+        JLabel groupId = new JLabel("Group Name");
+        JTextField groupidtf = new JTextField(10);
 
         JButton Add = new JButton("Add");
 
@@ -63,13 +67,30 @@ public class AddMember {
         address.setBounds(250, 250, 150, 35);
         addressTf.setBounds(400, 250, 150, 35);
 
-        timing.setBounds(250, 300, 150, 35);
-        timingTf.setBounds(400, 300, 150, 35);
+        groupId.setBounds(250, 300, 150, 35);
+        groupidtf.setBounds(400, 300, 150, 35);
 
-        backButton.setBounds(900,5,50,50);
+        backButton.setBounds(700,5,50,50);
         Add.setBounds(400, 350, 150, 35);
 
         Add.addActionListener(btn->{
+            String _name = memberName.getText();
+            String _gender = genderTf.getText();
+            Integer _age = Integer.valueOf(ageTf.getText());
+            String _contact = contactTf.getText();
+            String _address = addressTf.getText();
+            String _groupName =(groupidtf.getText());
+
+            Long Id= GroupService.checkGroupNAme(_groupName);
+            if (Id!=null){
+                Boolean addmember = MemberService.addMember(_name,_gender,_age,_contact,_address,"ACTIVE",Id);
+            if(addmember){
+                JOptionPane.showMessageDialog(frame,"Member Added Succesfully");
+            }else {
+                JOptionPane.showMessageDialog(frame,"Error! Member not added");
+            }}else {
+                JOptionPane.showMessageDialog(frame,"Wrong Group Name");
+            }
 
         });
 
@@ -89,8 +110,8 @@ public class AddMember {
         bottomPanel.add(contactTf);
         bottomPanel.add(address);
         bottomPanel.add(addressTf);
-        bottomPanel.add(timing);
-        bottomPanel.add(timingTf);
+        bottomPanel.add(groupId);
+        bottomPanel.add(groupidtf);
         bottomPanel.add(Add);
         bottomPanel.add(backButton);
 
@@ -98,9 +119,11 @@ public class AddMember {
         container.add(bottomPanel);
 
         frame.setLayout(null);
-        frame.setSize(1000,1000);
+        frame.setSize(800,800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
 
     }
-}
+    }
+

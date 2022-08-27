@@ -29,6 +29,25 @@ public class MemberService {
         return data;
     }
 
+    public static String[][] getAllMembersForLookUpMember(int length,String contact) {
+        MemberRepository memberRepository = new MemberRepository();
+        List<Member> members = memberRepository.getAllMembersForLookUpMEmber(contact);
+
+        String[][] data = new String[members.size()][length];
+        for (int row = 0; row < members.size(); row++) {
+            data[row][0] = members.get(row).getId().toString();
+            data[row][1] = members.get(row).getName();
+            data[row][2] = members.get(row).getGender();
+            data[row][3] = members.get(row).getAge().toString();
+            data[row][4] = members.get(row).getContact();
+            data[row][5] = members.get(row).getAddress();
+            data[row][6] = members.get(row).getStatus();
+
+        }
+        return data;
+    }
+
+
     public static boolean addMember(String name, String gender, Integer age, String contact, String address,String status,Long groupId){
 
         MemberRepository memberRepository = new MemberRepository();

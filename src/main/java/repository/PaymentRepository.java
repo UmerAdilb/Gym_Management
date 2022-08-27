@@ -126,5 +126,22 @@ List<Payment> paylist = new ArrayList<>();
             return  false;}
     }
 
+    public Payment checkPayentthroughContactMonthYr(String contact, String month, String year) {
+       Payment pay = new Payment();
+
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(
+                    "select p.id,p.basic_fees,p.fees_paid,p.fees_remaining,p.fees_status,p.date,p.month,p.year,p.member_id from payment p inner join member m on p.member_id = m.id where m.contact='"+contact+"' and p.month= '"+month+"' and p.year='"+year+"' ");
+
+            while (rs.next()){
+                pay.populate(rs);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pay;
+
+    }
 }
 

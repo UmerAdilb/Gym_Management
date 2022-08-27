@@ -1,5 +1,6 @@
 package ui.Admin;
 
+import services.GroupService;
 import services.MemberService;
 import services.TrainerService;
 
@@ -18,9 +19,9 @@ public class AddMemberAdmin {
         bottomPanel.setLayout(null);
 
         topPanel.setBackground(Color.GRAY);
-        topPanel.setBounds(0, 0, 1000, 100);
+        topPanel.setBounds(0, 0, 800, 100);
         bottomPanel.setBackground(Color.lightGray);
-        bottomPanel.setBounds(0, 100, 1000, 800);
+        bottomPanel.setBounds(0, 100, 800, 800);
 
         JLabel title = new JLabel("ADD Member");
 
@@ -41,7 +42,7 @@ public class AddMemberAdmin {
 
 
 
-        JLabel groupId = new JLabel("Group ID");
+        JLabel groupId = new JLabel("Group Name");
         JTextField groupidtf = new JTextField(10);
 
         JButton Add = new JButton("Add");
@@ -68,7 +69,7 @@ public class AddMemberAdmin {
         groupId.setBounds(250, 300, 150, 35);
         groupidtf.setBounds(400, 300, 150, 35);
 
-        backButton.setBounds(900,5,50,50);
+        backButton.setBounds(700,5,50,50);
         Add.setBounds(400, 350, 150, 35);
 
         Add.addActionListener(btn->{
@@ -77,13 +78,17 @@ public class AddMemberAdmin {
             Integer _age = Integer.valueOf(ageTf.getText());
             String _contact = contactTf.getText();
             String _address = addressTf.getText();
-            Long _groupid = Long.parseLong(groupidtf.getText());
-            Boolean addmember = MemberService.addMember(_name,_gender,_age,_contact,_address,"ACTIVE",_groupid);
+            String _groupName =(groupidtf.getText());
 
-            if(addmember){
-                JOptionPane.showMessageDialog(frame,"Member Added Succesfully");
-            }else {
-                JOptionPane.showMessageDialog(frame,"Error! Member not added");
+            Long Id= GroupService.checkGroupNAme(_groupName);
+            if (Id!=null){
+                Boolean addmember = MemberService.addMember(_name,_gender,_age,_contact,_address,"ACTIVE",Id);
+                if(addmember){
+                    JOptionPane.showMessageDialog(frame,"Member Added Succesfully");
+                }else {
+                    JOptionPane.showMessageDialog(frame,"Error! Member not added");
+                }}else {
+                JOptionPane.showMessageDialog(frame,"Wrong Group Name");
             }
 
         });
@@ -113,9 +118,14 @@ public class AddMemberAdmin {
         container.add(bottomPanel);
 
         frame.setLayout(null);
-        frame.setSize(1000,1000);
+        frame.setSize(800,800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
 
+    }
+
+    public static void main(String[] args) {
+        new AddMemberAdmin();
     }
 }

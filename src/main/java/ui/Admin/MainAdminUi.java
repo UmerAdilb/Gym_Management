@@ -5,47 +5,46 @@ import ui.LoginUi;
 import ui.User.ManageAttendance;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainAdminUi {
     public MainAdminUi(){
         JFrame frame = new JFrame("Admin Panel");
+        JLabel Gym = new JLabel();
+        Gym.setText("GYM ADMIN PANEL");
+        Gym.setFont(new Font("TimesRoman",Font.BOLD,30));
+        Gym.setBounds(100,10,300,80);
+
 
         JButton btnmember = new JButton();
-        btnmember.setBounds(150,100,150,30);
-        btnmember.setFocusable(false);
+        btnmember.setBounds(150,100,200,30);
+
         btnmember.setText("Manage Member");
 
         JButton btntrainer = new JButton();
-        btntrainer.setBounds(150,150,150,30);
-        btntrainer.setFocusable(true);
+        btntrainer.setBounds(150,160,200,30);
         btntrainer.setText("Manage Trainer");
 
         JButton btnpackages = new JButton();
-        btnpackages.setBounds(150,200,150,30);
-        btnpackages.setFocusable(true);
+        btnpackages.setBounds(150,220,200,30);
         btnpackages.setText("Manage Groups");
 
-        JButton btnattendance = new JButton();
-        btnattendance.setBounds(150,250,150,30);
-        btnattendance.setFocusable(true);
-        btnattendance.setText("Manage Attendance");
 
         JButton btnreport = new JButton();
-        btnreport.setBounds(150,300,150,30);
-        btnreport.setFocusable(true);
+        btnreport.setBounds(150,280,200,30);
         btnreport.setText("Manage Report");
 
         JButton btnLogout = new JButton();
-        btnLogout.setBounds(150,400,150,30);
+        btnLogout.setBounds(185,400,150,30);
         btnLogout.setFocusable(false);
         btnLogout.setText("Logout");
 
         frame.add(btnmember);
         frame.add(btntrainer);
         frame.add(btnpackages);
-        frame.add(btnattendance);
         frame.add(btnreport);
         frame.add(btnLogout);
+        frame.add(Gym);
 
 //        frame.setLayout(new FlowLayout(FlowLayout.CENTER,120,25));
         frame.setSize(500, 500);
@@ -66,10 +65,7 @@ public class MainAdminUi {
             frame.dispose();
             new ManageGroups();
         });
-        btnattendance.addActionListener(el->{
-            frame.dispose();
-//            new ManageAttendance();
-        });
+
         btnreport.addActionListener(el->{
 
             frame.dispose();

@@ -96,7 +96,7 @@ panel3.add(updatePayment);
         c.add(panel2);
         c.add(panel3);
         f.setLayout(null);
-        f.setSize(1000,860);
+        f.setSize(1000,800);
         f.setVisible(true);;
         f.setLocationRelativeTo(null);
 

@@ -142,10 +142,10 @@ public class ManageReport {
 //
 //        });
 //
-//        back.addActionListener(btn->{
-//            frame.dispose();
-//            new AddPayment();
-//        });
+        back.addActionListener(btn->{
+            frame.dispose();
+            new MainAdminUi();
+        });
 
         container.add(panel1);
         container.add(panel2);
@@ -153,6 +153,8 @@ public class ManageReport {
         frame.setSize(600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+
     }
 
     }

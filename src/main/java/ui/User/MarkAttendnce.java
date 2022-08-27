@@ -13,7 +13,7 @@ public class MarkAttendnce  {
     MarkAttendnce(){
         JFrame frame = new JFrame("Mark Attendance");
 
-        JLabel memberidLb = new JLabel("Enter the Member id to mark attendance");
+        JLabel memberidLb = new JLabel("Enter Member id or Contact");
         memberidLb.setBounds(180,60,250,120);
         JTextField memberidTf = new JTextField();
         memberidTf.setBounds(200,150,150,20);

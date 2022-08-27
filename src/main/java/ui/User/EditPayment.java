@@ -27,31 +27,33 @@ public class EditPayment {
 
         JLabel basicFees = new JLabel("Basic fees");
         JTextField basicFeesTf = new JTextField(10);
-
+basicFeesTf.setText(payment.getBasic_fees().toString());
         JLabel feesPaid = new JLabel("Fees Paid");
         JTextField feesPaidTf = new JTextField(10);
-
+feesPaidTf.setText(payment.getFees_paid().toString());
         JLabel feesRemaining = new JLabel("Fees Remaining");
         JTextField feesRemainingTf = new JTextField(10);
-
+feesRemainingTf.setText(payment.getFees_remaining().toString());
         JLabel feesStatus = new JLabel("Fees Status");
         JTextField feesStatusTf = new JTextField(10);
+feesStatusTf.setText(payment.getFees_status());
 
         JLabel date = new JLabel("Date");
         JTextField dateTf = new JTextField(10);
-
+dateTf.setText(payment.getDate());
         JLabel month = new JLabel("Month");
         JTextField monthTf = new JTextField(10);
-
+monthTf.setText(payment.getMonth());
         JLabel year = new JLabel("Year");
         JTextField yearTf = new JTextField(10);
-
+yearTf.setText(payment.getYear());
         JLabel memberId = new JLabel("Member Id");
         JTextField memberIdTf = new JTextField(10);
-
+memberIdTf.setText(payment.getMember_id().toString());
 
         JButton update = new JButton("Update");
         JButton backButton = new JButton(">");
+        JButton generatereceipt = new JButton("Generate Receipt");
 
 
 
@@ -82,6 +84,7 @@ public class EditPayment {
 
         backButton.setBounds(900,5,50,50);
         update.setBounds(400, 550, 150, 35);
+        generatereceipt.setBounds(385,600,180,35);
 
         update.addActionListener(btn->{
             Double _basicFees = Double.parseDouble(basicFeesTf.getText());
@@ -102,12 +105,30 @@ public class EditPayment {
 
         });
 
+        generatereceipt.addActionListener(btn->{
+//            Double _basicFees = Double.parseDouble(basicFeesTf.getText());
+//            Double _feesRemaining = Double.parseDouble(feesPaidTf.getText());
+//            Double _feesPaid = Double.parseDouble(feesRemainingTf.getText());
+//            String _feesStatus = feesStatusTf.getText();
+            String _date = dateTf.getText();
+            String _month = monthTf.getText();
+            String _year = yearTf.getText();
+            Long _memberId = Long.parseLong(memberIdTf.getText());
+            if (_memberId == null)
+            {
+                JOptionPane.showMessageDialog(frame,"Record Added Succesfully");
+            }
+
+            Payment pay = PaymentService.ShowPaymentOfSpecificMember(_date,_month,_year,_memberId);
+            new GeneratePaymentReceipt(pay);
+
+        });
 
         backButton.addActionListener(btn->{
             frame.dispose();
             new PaymentReceipt();
         });
-
+bottomPanel.add(generatereceipt);
         topPanel.add(title);
         bottomPanel.add(basicFees);
         bottomPanel.add(basicFeesTf);

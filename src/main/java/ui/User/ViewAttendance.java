@@ -20,34 +20,31 @@ public class ViewAttendance {
 
         panel2.setBackground(Color.lightGray);
         panel1.setBounds(0,0,760,200);
-        panel2.setBounds(0,250,760,500);
+        panel2.setBounds(0,250,760,600);
 
 
         JLabel memberidLb = new JLabel("Enter the Member Details to Search attendance");
-        memberidLb.setBounds(25,20,250,20);
+        memberidLb.setBounds(40,20,450,20);
         JTextField memberidTf = new JTextField();
-        memberidTf.setBounds(300,20,200,20);
-memberidTf.setText("Member Id");
-        JRadioButton id=new JRadioButton("Member Id");
-        JRadioButton contactno=new JRadioButton("Contact No");
-        id.setBounds(100,50,100,30);
-        contactno.setBounds(100,70,100,30);
+        memberidTf.setBounds(30,80,150,30);
+        memberidTf.setText("Member Id");
+        memberidLb.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 
         JButton btnsearch = new JButton();
-        btnsearch.setBounds(25,125,90,20);
+        btnsearch.setBounds(560,80,150,30);
         btnsearch.setText("Search");
 
         JButton backBtn = new JButton();
-        backBtn.setBounds(150,125,90,20);
+        backBtn.setBounds(560,150,150,30);
         backBtn.setText("Back");
 
 
         String[] months = { "january","february", "march","april","may","june","july","august","september","october","november","december"};
         JComboBox<String> mo = new JComboBox<>(months);
-        mo.setBounds(550,60,150,20);
+        mo.setBounds(200,80,150,30);
         String[] year = {"2022","2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"};
         JComboBox<String> ye = new JComboBox<>(year);
-        ye.setBounds(550,100,150,20);
+        ye.setBounds(380,80,150,30);
 
 
 
@@ -66,17 +63,29 @@ memberidTf.setText("Member Id");
 //                JOptionPane.showMessageDialog(f,"Please select the field");
 //            }
 
+            JTable jt= null;
 
             String _month = mo.getSelectedItem().toString();
             String _year = ye.getSelectedItem().toString();
             String _memberid = memberidTf.getText();
+            if (!_memberid.equalsIgnoreCase("Member Id")){
+                if(AttendanceService.checkMemberIdPResent(_memberid)){
             String column[]={"Member Id","Day","Month","Year","Present"};
             String data[][] = AttendanceService.getAllAttendanceForJTable(column.length,_month
                     ,_year,_memberid);
-            JTable jt=new JTable(data,column);
+            jt=new JTable(data,column);
+            panel2.add(jt);
             JScrollPane sp=new JScrollPane(jt);
-            sp.setBounds(15,0,700,300);
-            panel2.add(sp);
+            sp.setBounds(15,0,700,600);
+                    panel2.add(sp);
+           ;}else {
+                    JOptionPane.showMessageDialog(f,"Wrong Member ID");
+                }
+            }else {
+                JOptionPane.showMessageDialog(f,"Please Insert Member ID");
+
+            }
+
 
         });
 
@@ -84,8 +93,7 @@ memberidTf.setText("Member Id");
 
         panel1.add(memberidLb);
         panel1.add(memberidTf);
-        panel1.add(id);
-        panel1.add(contactno);
+
         panel1.add(btnsearch);
         panel1.add(backBtn);
 
